@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Organigramme;
 use App\Models\Projet;
+use App\Models\Projet_modifier;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Hash;
@@ -138,11 +139,12 @@ class UserController extends Controller
          $user = User::find($id);
          $permissions=Permission::all();
         $project = $user->projet;
+        $projet_modifier = $user->projet_modifier;
         $count_projet = 0;
         $les_projets = array();
         $ajax_option='';
         $les_projets= array();
-
+        $les_projet_modifier= array();
         for($i=0;$i<count($project);$i++){
             $organigramme=Organigramme::find($project[$i]->organigrammes_id );
             $id_organigramme = $project[$i]->organigrammes_id;
@@ -154,12 +156,27 @@ class UserController extends Controller
           }
 
 
+          
+        for($i=0;$i<count($projet_modifier);$i++){
+            $organigramme=Organigramme::find($projet_modifier[$i]->organigrammes_id );
+            $id_organigramme = $projet_modifier[$i]->organigrammes_id;
+            $nom_organigrammes = $organigramme->nom;
+            $dossiers = json_decode($projet_modifier[$i]->dossiers, true);
+        
+            $les_projet_modifier[] = array('id' => $id_organigramme ,'nom_organigrammes' => $nom_organigrammes,'dossiers_select' => $dossiers , 'dossiers' => $organigramme->dossier_champ );
+            
+          }
+
+
+
+
+
          
 
 
           
 
-       return view('user.showuser',compact('user','roles','permissions','organigrammes','les_projets' ,'count_projet' ));
+       return view('user.showuser',compact('user','roles','permissions','organigrammes','les_projets' ,'count_projet','les_projet_modifier' ));
 
 
     }
@@ -213,6 +230,8 @@ class UserController extends Controller
 
         $delete_projet= Projet::where('user_id', '=', $user->id);  
         $delete_projet->delete();
+        $projet_modifier= Projet_modifier::where('user_id', '=', $user->id);  
+        $projet_modifier->delete();
 
         if (is_array_empty($request->organigramme_id)) {
     
@@ -221,6 +240,19 @@ class UserController extends Controller
                 $projet->organigrammes_id  = $request->organigramme_id[$i];
                 $projet->user_id  = $user->id;
                 $dossiers =json_encode($request->input('dossiers'.$request->organigramme_id[$i]));
+                $projet->dossiers = $dossiers ;
+                $projet->save();
+                $count++;
+            }   
+        }
+
+        if (is_array_empty($request->organigramme_id_edit)) {
+    
+            for($i=0;$i<count($request->input('organigramme_id_edit'));$i++){
+                $projet = new Projet_modifier();
+                $projet->organigrammes_id  = $request->organigramme_id_edit[$i];
+                $projet->user_id  = $user->id;
+                $dossiers =json_encode($request->input('dossiers_edit'.$request->organigramme_id_edit[$i]));
                 $projet->dossiers = $dossiers ;
                 $projet->save();
                 $count++;

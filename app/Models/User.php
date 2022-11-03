@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Projet','user_id');
     }
+
+    public function projet_modifier()
+    {
+        return $this->hasMany('App\Models\Projet_modifier','user_id');
+    }
 }
