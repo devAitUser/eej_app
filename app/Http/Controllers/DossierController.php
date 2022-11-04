@@ -64,7 +64,7 @@ class DossierController extends Controller
 
     }
 
-    public function fill_parent_dossier(){
+    public function fill_parent_dossier(Request $request){
 
         $user = Auth::user();
         $id ='';
@@ -92,18 +92,69 @@ class DossierController extends Controller
 
            if( $les_dossiers!= '' ){
                   $id_dossier=  json_decode($les_dossiers, true);
-                $dossier_champs = DB::table('dossier_champs')->whereIn('id', $id_dossier)->get();
+
+                  $all_dossier_champs = Dossier_champ::all();
+
+                  for ($i=0; $i < count($all_dossier_champs) ; $i++) { 
+                        if($all_dossier_champs[$i]->entite_id == $request->id_entite && $all_dossier_champs[$i]->parent_id == 0   ){
+
+                            if(in_array($all_dossier_champs[$i]->id, $id_dossier)){
+                                $dossier_champs[] = $all_dossier_champs[$i];
+                            }
+                            
+                        }
+                  }
+
+               
 
            }else {
 
                 $dossier_champs = Dossier_champ::where([
                 'organigramme_id' =>  $id ,
                 'parent_id' => 0,
+                'entite_id' => $request->id_entite,
            
                 ])->get();
 
 
            }
+
+        
+         
+
+       }
+
+
+        return Response()
+        ->json($dossier_champs );
+
+    }
+
+
+    public function fill_entite(){
+
+        $user = Auth::user();
+        $id ='';
+        $entites = array();
+
+        $entites = '';
+        
+
+       if($user->projet_select_id != NULL) {
+
+           $projet_select_id = $user->projet_select_id;
+           $dossiers_voir = $user->projet;
+
+            $organigramme = Organigramme::find($projet_select_id);
+            $id = $organigramme->id;
+
+           
+
+
+           $entites = Entite::where('organigramme_id', $id)->get();
+
+
+           
 
         
 
@@ -124,7 +175,7 @@ class DossierController extends Controller
 
 
         return Response()
-        ->json($dossier_champs );
+        ->json($entites );
 
     }
 
@@ -340,6 +391,7 @@ class DossierController extends Controller
         $user = Auth::user();
         $id ='';
 
+        $all_dossiers = array();
        if($user->projet_select_id != NULL) {
 
            $projet_select_id = $user->projet_select_id;

@@ -122,6 +122,19 @@ label:last-child input[type=radio] {
              
               <input type="text" name="id_organigramme" value="{{$id_organigramme}}" hidden>
 
+                     <div class="form-group row">
+                           <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Entite :</label>
+                           <input  type="text" name="nom_champs_select[]" value="Entite" hidden="">
+                           <div class="col-sm-8">
+                           <select class="form-select" id="entite_select" name="value_select[]">
+                              <option value="">Sélectionner l'entité  </option>
+                     
+                              </select>
+
+                              
+                           </div>
+                        </div>
+
               
                         <div class="form-group row">
                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">FOND :</label>

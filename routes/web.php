@@ -92,6 +92,7 @@ Route::get('/test',[App\Http\Controllers\DossierController::class, 'test']);
 
 Route::get('/create_dossier',[App\Http\Controllers\DossierController::class, 'create_dossier'])->name('create_dossier');
 Route::get('/fill_parent_dossier',[App\Http\Controllers\DossierController::class, 'fill_parent_dossier']);
+Route::get('/fill_entite',[App\Http\Controllers\DossierController::class, 'fill_entite']);
 Route::post('/uploud_pdf_temp',[App\Http\Controllers\DossierController::class, 'uploud_pdf_temp']);
 
 

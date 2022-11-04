@@ -219,19 +219,98 @@ function add_row_select(row){
 
 }
 
+function fill_entite() {
+
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $.ajax({
+      url: APP_URL + "/fill_entite",
+      method: "get",
+      dataType: "json",
+      success: function(data) {
+          $.each(data, function() {
+
+              $("#entite_select").append($("<option     />").val(this.id).text(this.nom));
+          });
+
+
+      }
+  })
+
+}
+
 
 $(document).ready(function() {
 
 
 
 
-
+  fill_entite()
 
   
   fill_parent_dossier()
 
 
-  
+  $('#entite_select').on('change', function() {
+    var id_select = $('#entite_select option:selected').val();
+
+    if (id_select == '') {
+
+        var count_p = count;
+
+
+
+
+        var next = 2;
+
+        for (let i = next; i < count_p + 1; i++) {
+            $("#row_" + i).remove();
+            count = count - 1;
+        }
+        count++;
+
+        $("#parent_select").find('option').not(':first').remove();
+        $("#sous_select_1").find('option').not(':first').remove();
+        $(".sous_label_1").html('________ :');
+
+        $("#attribut_champ").empty();
+        $("#attribut_file").empty();
+
+    }
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $.ajax({
+      url: APP_URL + "/fill_parent_dossier",
+      method: "get",
+      dataType: "json",
+      data: {
+        id_entite: id_select
+      },
+      success: function(data) {
+        $("#parent_select").find('option').not(':first').remove();
+          $.each(data, function() {
+
+              $("#parent_select").append($("<option     />").val(this.id).text(this.nom_champs));
+          });
+
+
+      }
+  })
+
+});
 
 
   $('#parent_select').on('change', function() {
