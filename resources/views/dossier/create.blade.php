@@ -101,6 +101,9 @@
 label:last-child input[type=radio] {
   transform: scale(1.5);
 }
+.col-md-6.panel_create_dossier {
+    margin: 0 auto;
+}
 </style>
 
 
@@ -115,7 +118,7 @@ label:last-child input[type=radio] {
             @csrf
       <div class="row">
          
-         <div class="col-md-6 ">
+         <div class="col-md-6 panel_create_dossier ">
             <div class="row panel_add">
 
               <div class="col-md-12">
@@ -193,12 +196,7 @@ label:last-child input[type=radio] {
             
          </div>
          </div>
-         <div class="col-md-6 panel_organigramme   ">
-
-         <embed type="application/pdf" id="output"  height="100%" width="100%">
-
         
-         </div>
          <div class="col-md-12  ">
 
 

@@ -36,6 +36,33 @@ class OrganigrammeController extends Controller
 
     }
 
+
+    public function fill_name_dossier(Request $request)
+    {
+
+        $dossier_parent = Dossier_champ::find($request->champs_id);
+
+        return $dossier_parent;
+
+    }
+
+
+    
+    public function modif_nom_dossier(Request $request)
+    {
+
+        $dossier = Dossier_champ::find($request->id_dossier);
+
+        $dossier->nom_champs = $request->nom_dossier ;
+        $dossier->save();
+
+
+        return Response()
+        ->json(['etat' => true]);
+
+    }
+
+
     
 
     public function get_node_data($parent_id, $organigramme_id, $entite_organigramme)
@@ -63,7 +90,7 @@ class OrganigrammeController extends Controller
                     $sub_array['id_node'] = $dossier_parent[$i]->parent_id;
                     if (count($check_attributs) == 0)
                     {
-                        $sub_array['text'] = $dossier_parent[$i]->nom_champs . '<a href="" class="prevent-default" onClick="removeRow(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_delete"> delete </span></a>';
+                        $sub_array['text'] = $dossier_parent[$i]->nom_champs . '<a href="" class="prevent-default" onClick="removeRow(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_delete"> delete </span></a><a href="" class="prevent-default" data-toggle="modal" data-target="#panel_name_dossier" onClick="edit_name_dossier(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_edit_name  mr-3"> drive_file_rename_outline </span></a> ';
                     }
                     else
                     {

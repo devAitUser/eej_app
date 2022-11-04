@@ -331,8 +331,8 @@ function fill_parent_dossier() {
             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         }
     });
-    $.ajax({
-        url: APP_URL + "/fill_parent_dossier",
+    $.ajax({ 
+        url: APP_URL + "/fill_parent_dossier_consulter",
         method: "get",
         dataType: "json",
         success: function(data) {
@@ -443,7 +443,7 @@ $(document).ready(function() {
           }
       });
       $.ajax({
-          url: APP_URL + "/fill_parent_dossier",
+          url: APP_URL + "/fill_parent_dossier_consulter",
           method: "get",
           dataType: "json",
           data: {

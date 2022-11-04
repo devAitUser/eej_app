@@ -336,4 +336,39 @@
      </div>
    </div>
  </div>
+
+
+
+  <!-- Modal edit name dossier -->
+  <div class="modal fade" id="panel_name_dossier" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title" id="Modal_attributs">Modifier le nom du dossier : <strong><span class="title_dossier"></span></strong>
+            </h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <form method="post" id="form_modal">
+       <div class="modal-body">
+ 
+            
+            <div class="panel_pop_up">
+                     <div class="form-group">
+                     <label for="nom_organigramme">Nom du dossier</label>
+                     <input type="text" id="id_modif_nom_dossier" hidden>
+                     <input type="text" class="form-control" name="modif_nom_dossier" id="modif_nom_dossier" placeholder="Nom du L'entité " required="">
+                     </div>
+            </div>
+      
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary btn_fermer_attributs" data-dismiss="modal">Fermer</button>
+         <button type="button" class="btn btn-primary btn_modif_nom_dossier">Modifier</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
 @endsection

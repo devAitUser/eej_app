@@ -115,6 +115,54 @@ var check_parent = 'false';
 }
 
 
+
+
+function edit_name_dossier(e,row) {
+
+
+
+
+  
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.ajax({
+    url: APP_URL+"/fill_name_dossier",
+    method:"POST",
+    data:{
+      champs_id : row,
+    },
+    success: function(data) {
+      console.log(data)
+
+
+      $("#id_modif_nom_dossier").val(data.id);
+      $("#modif_nom_dossier").val(data.nom_champs);
+
+     
+
+
+    }
+  })
+
+
+
+
+
+
+  
+
+
+ 
+        
+
+
+}
+
+
  function removeRow_table_champs_add(e,row) {
 
   e.preventDefault();
@@ -544,6 +592,39 @@ $(document).ready(function() {
             
 
               $('#panel_entite .btn_fermer_attributs').click();
+
+            }
+    
+          }
+         })
+      });
+
+
+      $('.btn_modif_nom_dossier').on('click', function(event){
+        event.preventDefault();
+
+        var id_dossier =  $('#id_modif_nom_dossier').val();
+        var nom_dossier =  $('#modif_nom_dossier').val();
+
+        $.ajax({
+          url:APP_URL+"/modif_nom_dossier",
+          method:"POST",
+          data:{
+            'id_dossier' : id_dossier,
+            'nom_dossier' : nom_dossier,
+          },
+          success:function(data){
+
+            if(data.etat){
+
+
+              
+              
+            
+
+              $('#panel_name_dossier .btn_fermer_attributs').click();
+
+              fill_treeview();
 
             }
     
