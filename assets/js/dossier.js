@@ -10,7 +10,7 @@ function load_name_File(event, id_file) {
     const Array_file = file.split(".");
     let x = Array_file[0];
 
-    $('#Objet_file').val(x);
+    $('#Objet_file').val(file);
 
 }
 
@@ -193,8 +193,8 @@ function add_row_select(row) {
 
                     row_select = '<div id="row_' + count + '" class="col-md-12">';
                     row_select += '<div class="form-group row">';
-                    row_select += ' <label for="colFormLabelSm" id="" class="col-sm-4 col-form-label col-form-label-sm sous_label_' + count + ' text-uppercase" >________ :</label>';
-                    row_select += ' <input class="nom_champs_select_' + count + '" type="text" name="nom_champs_select[]" value="text" hidden> <div class="col-sm-8">';
+                    row_select += ' <label for="colFormLabelSm" id="" class="col-sm-6 col-form-label col-form-label-sm sous_label_' + count + ' text-uppercase" >________ :</label>';
+                    row_select += ' <input class="nom_champs_select_' + count + '" type="text" name="nom_champs_select[]" value="text" hidden> <div class="col-sm-6">';
                     row_select += ' <select class="form-select" id="sous_select_' + count + '" name="value_select[]" onchange="add_row_select(' + count + ')" >';
                     row_select += '<option value="">Selectionne le dossier</option>';
                     $.each(data.dossier_champs, function() {
@@ -255,10 +255,10 @@ function add_row_select(row) {
                     if (this.type_champs == "Text") {
                         row_select1 = '<div id="" class="col-md-12">';
                         row_select1 += '<div class="form-group row">';
-                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
+                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-6 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
                         row_select1 += '<input type="text" name="nom_champ[]"  value="' + this.nom_champs + ' " class="d-none"> ';
-                        row_select1 += '<input type="text" name="type_champ[]" value="text" class="d-none"> <div class="col-sm-8">';
-                        row_select1 += ' <input class="form-control" type="text" id="field_' + this.id + '" name="valeur[]" required>';
+                        row_select1 += '<input type="text" name="type_champ[]" value="text" class="d-none"> <div class="col-sm-6">';
+                        row_select1 += ' <input class="form-control" type="text" id="Objet_file" name="valeur[]" required>';
 
 
                         row_select1 += '</div></div>';
@@ -271,9 +271,9 @@ function add_row_select(row) {
                     if (this.type_champs == "date") {
                         row_select1 = '<div id="" class="col-md-12">';
                         row_select1 += '<div class="form-group row">';
-                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
+                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-6 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
                         row_select1 += '<input type="text" name="nom_champ[]" value="' + this.nom_champs + ' " class="d-none"> ';
-                        row_select1 += '<input type="text" name="type_champ[]" value="date" class="d-none"> <div class="col-sm-8">';
+                        row_select1 += '<input type="text" name="type_champ[]" value="date" class="d-none"> <div class="col-sm-6">';
                         row_select1 += ' <input class="form-control" type="date" name="valeur[]" required>';
 
                         row_select1 += '';
@@ -285,10 +285,10 @@ function add_row_select(row) {
                     if (this.type_champs == "Fichier") {
                         row_select1 = '<div id="" class="col-md-12">';
                         row_select1 += '<div class="form-group row">';
-                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
+                        row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-6 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
                         row_select1 += '<input type="text" name="nom_champ_file[]" value="' + this.nom_champs + ' " class="d-none"> ';
-                        row_select1 += '<div class="col-sm-8">';
-                        row_select1 += ' <input required class="form-control controle_file" type="file" name="file[]" placeholder="Choose file" id="file" onchange="loadFile(event,' + this.id + ');"> ';
+                        row_select1 += '<div class="col-sm-6">';
+                        row_select1 += ' <input required class="form-control controle_file" type="file" name="file[]" placeholder="Choose file" id="file" onchange="load_name_File(event,' + this.id + ');"> ';
 
                         row_select1 += '<input type="d-none" class="d-none" id="file_' + this.id + '" name="file_text[]" value="" >';
 

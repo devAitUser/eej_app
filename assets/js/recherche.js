@@ -293,7 +293,7 @@ $(document).ready(function() {
       }
   });
   $.ajax({
-      url: APP_URL + "/fill_parent_dossier",
+      url: APP_URL + "/fill_parent_dossier_consulter",
       method: "get",
       dataType: "json",
       data: {

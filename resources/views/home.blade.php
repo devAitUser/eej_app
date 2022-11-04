@@ -88,7 +88,7 @@
                @endif
 
          </ul>
-         <ul class="block_archive">
+         {{-- <ul class="block_archive">
             <div class="sub_archive_block">
                <h4 class="titre_block_archive">
                   <img src="{{ asset('img_app/Box-icon.png') }}" style="vertical-align: bottom;position: relative;top: 1px;right: 3px;" alt="">
@@ -122,7 +122,7 @@
         
            
             </div>
-         </ul>
+         </ul> --}}
       </div>
 
       <div class="block_menu right @if (!Auth::user()->hasPermissionTo('Créer les dossiers')) w_menu_right @endif">

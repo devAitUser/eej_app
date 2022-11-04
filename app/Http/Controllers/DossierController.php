@@ -130,6 +130,72 @@ class DossierController extends Controller
 
     }
 
+    public function fill_parent_dossier_consulter(Request $request){
+
+        $user = Auth::user();
+        $id ='';
+        $dossier_champs = array();
+        $les_dossiers  = '';
+
+       if($user->projet_select_id != NULL) {
+
+           $projet_select_id = $user->projet_select_id;
+           $dossiers_voir = $user->projet_modifier;
+
+            $organigramme = Organigramme::find($projet_select_id);
+            $id = $organigramme->id;
+
+           
+
+           for($j=0;$j<count($dossiers_voir);$j++){ 
+
+               if($dossiers_voir[$j]['organigrammes_id']== $id ){
+                   $les_dossiers  =  $dossiers_voir[$j]['dossiers'];
+               }
+
+           }
+
+
+           if( $les_dossiers!= '' ){
+                  $id_dossier=  json_decode($les_dossiers, true);
+
+                  $all_dossier_champs = Dossier_champ::all();
+
+                  for ($i=0; $i < count($all_dossier_champs) ; $i++) { 
+                        if($all_dossier_champs[$i]->entite_id == $request->id_entite && $all_dossier_champs[$i]->parent_id == 0   ){
+
+                            if(in_array($all_dossier_champs[$i]->id, $id_dossier)){
+                                $dossier_champs[] = $all_dossier_champs[$i];
+                            }
+                            
+                        }
+                  }
+
+               
+
+           }else {
+
+                $dossier_champs = Dossier_champ::where([
+                'organigramme_id' =>  $id ,
+                'parent_id' => 0,
+                'entite_id' => $request->id_entite,
+           
+                ])->get();
+
+
+           }
+
+        
+         
+
+       }
+
+
+        return Response()
+        ->json($dossier_champs );
+
+    }
+
 
     public function fill_entite(){
 

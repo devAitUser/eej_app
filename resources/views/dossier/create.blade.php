@@ -115,7 +115,7 @@ label:last-child input[type=radio] {
             @csrf
       <div class="row">
          
-         <div class="col-md-4 ">
+         <div class="col-md-6 ">
             <div class="row panel_add">
 
               <div class="col-md-12">
@@ -123,9 +123,9 @@ label:last-child input[type=radio] {
               <input type="text" name="id_organigramme" value="{{$id_organigramme}}" hidden>
 
                      <div class="form-group row">
-                           <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">Entite :</label>
+                           <label for="colFormLabelSm" class="col-sm-6 col-form-label col-form-label-sm">Entité :</label>
                            <input  type="text" name="nom_champs_select[]" value="Entite" hidden="">
-                           <div class="col-sm-8">
+                           <div class="col-sm-6">
                            <select class="form-select" id="entite_select" name="value_select[]">
                               <option value="">Sélectionner l'entité  </option>
                      
@@ -137,9 +137,9 @@ label:last-child input[type=radio] {
 
               
                         <div class="form-group row">
-                           <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">FOND :</label>
+                           <label for="colFormLabelSm" class="col-sm-6 col-form-label col-form-label-sm">FOND :</label>
                            <input  type="text" name="nom_champs_select[]" value="FOND" hidden="">
-                           <div class="col-sm-8">
+                           <div class="col-sm-6">
                            <select class="form-select" id="parent_select" name="value_select[]">
                               <option value="">Selectionne le dossier</option>
                      
@@ -158,9 +158,9 @@ label:last-child input[type=radio] {
 
      
                         <div class="form-group row">
-                           <label for="colFormLabelSm"  class="col-sm-4 col-form-label col-form-label-sm sous_label_1 text-uppercase">________ :</label>
+                           <label for="colFormLabelSm"  class="col-sm-6 col-form-label col-form-label-sm sous_label_1 text-uppercase">________ :</label>
                            <input class="nom_champs_select_1" type="text" name="nom_champs_select[]" value="text" hidden="">
-                           <div class="col-sm-8">
+                           <div class="col-sm-6">
                               <select class="form-select" id="sous_select_1" name="value_select[]" onchange="add_row_select(1)">
                                  <option value="">Selectionne le dossier</option>
                         
@@ -193,7 +193,7 @@ label:last-child input[type=radio] {
             
          </div>
          </div>
-         <div class="col-md-8 panel_organigramme   ">
+         <div class="col-md-6 panel_organigramme   ">
 
          <embed type="application/pdf" id="output"  height="100%" width="100%">
 
@@ -212,7 +212,7 @@ label:last-child input[type=radio] {
            <div class="btn_panel">
             
                
-                  <button type="submit" class="btn btn-primary  mr-3 " >Validé</button>
+                  <button type="submit" class="btn btn-primary  mr-3 " >Valider</button>
                 
                   <button type="button" class="btn btn-danger" >Supprimer</button>
            </div>

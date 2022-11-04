@@ -70,11 +70,7 @@
                      </li>
 
 
-                     <li class="Mnuli lish  {{ request()->is('request_delete_dossier')  ? 'active' : '' }} ">
-                        <a href="{{route('request_delete_dossier')}}">
-                        <span class="material-icons">rule_folder</span>
-                        </a>
-                     </li>
+                   
                 
                  
    
@@ -104,16 +100,7 @@
                      @endif
 
 
-                     @if (Auth::user()->hasPermissionTo('Voir le plan de classement')) 
-                     <li class="Mnuli lish {{ request()->is('organigramme_view')  ? 'active' : '' }}">
-                        <a href="{{route('home_organigramme_view')}}">
-                           <span class="material-icons  ">
-                           account_tree
-                           </span>
-
-                         </a>
-                     </li>
-                     @endif
+                     
 
                
 
