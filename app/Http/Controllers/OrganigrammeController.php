@@ -94,7 +94,7 @@ class OrganigrammeController extends Controller
                     }
                     else
                     {
-                        $sub_array['text'] = $dossier_parent[$i]->nom_champs . '<a href="" class="prevent-default" onClick="removeRow(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_delete"> delete </span></a><a href="" class="prevent-default" data-toggle="modal" data-target="#panel_attributs" onClick="editRow_organi(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_edit"> border_color </span></a>';
+                        $sub_array['text'] = $dossier_parent[$i]->nom_champs . '<a href="" class="prevent-default" onClick="removeRow(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_delete"> delete </span></a><a href="" class="prevent-default" data-toggle="modal" data-target="#panel_attributs" onClick="editRow_organi(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_edit"> border_color </span></a> <a href="" class="prevent-default" data-toggle="modal" data-target="#panel_name_dossier" onClick="edit_name_dossier(event,' . $dossier_parent[$i]->id . ' )" ><span    class="material-icons btn_edit_name  mr-3"> drive_file_rename_outline </span></a>';
                     }
 
                     $sub_array['nodes'] = array_values($this->get_node_data($dossier_parent[$i]->id, $organigramme_id, $entite_organigramme));
