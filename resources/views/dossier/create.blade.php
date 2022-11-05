@@ -129,7 +129,7 @@ label:last-child input[type=radio] {
                            <label for="colFormLabelSm" class="col-sm-6 col-form-label col-form-label-sm">Entité :</label>
                            <input  type="text" name="nom_champs_select[]" value="Entite" hidden="">
                            <div class="col-sm-6">
-                           <select class="form-select" id="entite_select" name="value_select[]">
+                           <select class="form-select" id="entite_select" name="">
                               <option value="">Sélectionner l'entité  </option>
                      
                               </select>
