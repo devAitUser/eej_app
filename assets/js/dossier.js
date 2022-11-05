@@ -246,6 +246,7 @@ function add_row_select(row) {
             if ($.trim(data.attribut_champ)) {
 
                 $("#attribut_champ").empty();
+                $("#attribut_file").empty();
 
 
 
@@ -257,6 +258,7 @@ function add_row_select(row) {
                         row_select1 += '<div class="form-group row">';
                         row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-6 col-form-label col-form-label-sm">' + this.nom_champs + ' :</label>';
                         row_select1 += '<input type="text" name="nom_champ[]"  value="' + this.nom_champs + ' " class="d-none"> ';
+                        row_select1 += '<input type="text" name="id_champs[]"  value="' + this.id + ' " class="d-none"> ';
                         row_select1 += '<input type="text" name="type_champ[]" value="text" class="d-none"> <div class="col-sm-6">';
                         row_select1 += ' <input class="form-control" type="text" id="Objet_file" name="valeur[]" required>';
 

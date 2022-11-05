@@ -165,10 +165,12 @@ Route::get('/listfinal', [App\Http\Controllers\RoleController::class, 'listfinal
 
 //////////////////////////////////////////////////////
 Route::resource('roles',App\Http\Controllers\RoleController::class);
+Route::post('/roles_store', [App\Http\Controllers\RoleController::class, 'store'])->name('roles_store');
 Route::resource('permissions',App\Http\Controllers\PermissionController::class);
 Route::post('/rolepermission/{role}', [App\Http\Controllers\RoleController::class, 'givePermission'])->name('rolepermission');
 Route::delete('/revokePermission/{role}/permissions/{permission}', [App\Http\Controllers\RoleController::class, 'revokePermission'])->name('revokePermission');
 ///////////////////////////////////////////////////////////////
+
 Route::post('/assignRole/{user}', [App\Http\Controllers\UserController::class, 'assignRole'])->name('assignRole');
 Route::delete('/removeRole/{user}/{role}', [App\Http\Controllers\UserController::class, 'removeRole'])->name('removeRole');
 Route::post('/givePermission/{user}', [App\Http\Controllers\UserController::class, 'givePermission'])->name('givePermission');

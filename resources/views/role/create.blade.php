@@ -57,8 +57,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card-body">
-                <form method="POST" action="/roles">
-                    <input type="hidden" name="_token" value="M8uugXUVfKFh9QGheREkfE7o19VTThVORSC0AI74">                    <div class="row mb-3">
+                <form method="POST" action="{{url('/roles_store')}}">
+                    @csrf                    <div class="row mb-3">
                     <label for="name" class="col-md-4 col-form-label text-md-end">name</label>
                     <div class="col-md-6">
                         <input id="name" type="text" class="form-control " name="name" value="" required="" autocomplete="name" autofocus="">

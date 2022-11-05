@@ -158,22 +158,11 @@ $(document).ready(function() {
         $('#search_form').on('submit', function(event){
 
           event.preventDefault();
-
-         
-
-          //  $('.input_champs').each(function (i, obj) {
-         
-          //       if ($(this).val() != "") {
-          //           valueForAll = true;
-          //       }
-          //   });
-
-          //   if (valueForAll) {
-                
-          //   }
+      
 
 
-            if ($(".input_champs").length  ) {
+
+            
               
             
 
@@ -237,7 +226,7 @@ $(document).ready(function() {
            })
 
                  $(".btn_empty").removeClass("d_none");
-             }
+          
           
 
  
