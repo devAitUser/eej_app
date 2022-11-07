@@ -7,7 +7,7 @@
     e.preventDefault();
     var id =row
 
-    var url =APP_URL+'/show_dossier/' + row ;
+    var url =APP_URL+'/url_dossier/' + row ;
 
     window.open(url,'_blank');
 

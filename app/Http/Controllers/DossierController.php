@@ -20,6 +20,7 @@ use App\Models\Request_delete_dossier;
 use App\Models\Entite;
 
 use App\Models\Indexe;
+use Session;
 
 use Illuminate\Http\Request;
 
@@ -330,7 +331,35 @@ class DossierController extends Controller
             "check_demande_supperssion" => $check_demande_supperssion,
         ];
 
-        return view("dossier.show", $data);
+        $check_session_dossier = Session::get('show_dossier'); 
+
+       
+        if(empty(Session::get('var_session'))){
+            session(['var_session' => [] ]);
+        }
+
+      
+
+
+     
+        
+
+        
+
+        if(in_array($id,  Session::get('var_session') )){
+
+            return view("dossier.show", $data);
+
+        } elseif($check_session_dossier != ''){
+            
+            Session::push('var_session', $id);
+          
+            return view("dossier.show", $data);
+        } else {
+            return $check_session_dossier."<h3>vous n'avez pas l'autorisation d'accéder a ce dossier</h3>";
+        }
+
+        
     }
 
     public function historique_dossier(Request $request)
@@ -345,6 +374,7 @@ class DossierController extends Controller
 
     public function all_dossier()
     {
+        Session::flash('session_dossier','acceder aux dossiers');
         return view("dossier.all_dossier");
     }
 
@@ -373,39 +403,41 @@ class DossierController extends Controller
 
         $all_dossier = [];
 
-        for ($i = 0; $i < count($dossiers); $i++) {
-            $count_check_item_next = 0;
-            $check = 1;
-            $all_dossier = Attributs_dossier::where([
-                "dossier_id" => $dossiers[$i]->id,
-            ])->get();
+        // for ($i = 0; $i < count($dossiers); $i++) {
+        //     $count_check_item_next = 0;
+        //     $check = 1;
+        //     $all_dossier = Attributs_dossier::where([
+        //         "dossier_id" => $dossiers[$i]->id,
+        //     ])->get();
 
-            $createdAt = Carbon::parse($dossiers[$i]->created_at);
+        //     $createdAt = Carbon::parse($dossiers[$i]->created_at);
 
-            $date = $createdAt->format("d/m/Y H:i:s");
+        //     $date = $createdAt->format("d/m/Y H:i:s");
 
-            $user = User::find($dossiers[$i]->user_id);
-            for ($j = 0; $j < count($all_dossier); $j++) {
-                if ($all_dossier[$j]->type_champs == "text") {
-                    if ($check == $count_check_item_next) {
-                        $titre .= " / ";
-                        $check++;
-                    }
-                    $titre .= $all_dossier[$j]->valeur;
-                    $count_check_item_next++;
-                }
-            }
+        //     $user = User::find($dossiers[$i]->user_id);
+        //     for ($j = 0; $j < count($all_dossier); $j++) {
+        //         if ($all_dossier[$j]->type_champs == "text") {
+        //             if ($check == $count_check_item_next) {
+        //                 $titre .= " / ";
+        //                 $check++;
+        //             }
+        //             $titre .= $all_dossier[$j]->valeur;
+        //             $count_check_item_next++;
+        //         }
+        //     }
 
-            $all_dossiers[] = [
-                "id" => $dossiers[$i]->id,
-                "date" => $date,
-                "titre" => $titre,
-                "user" => $user->identifiant,
-            ];
-            $titre = "";
-        }
+        //     $all_dossiers[] = [
+        //         "id" => $dossiers[$i]->id,
+        //         "date" => $date,
+        //         "titre" => $titre,
+        //         "user" => $user->identifiant,
+        //     ];
+        //     $titre = "";
+        // }
 
         $data = ["id_organigramme" => $id, "all_dossiers" => $all_dossiers];
+
+        Session::flash('session_dossier','acceder aux dossiers');
 
         return view("dossier.recherche", $data);
     }
@@ -511,27 +543,33 @@ class DossierController extends Controller
         $all_dossier = [];
 
         for ($i = 0; $i < count($dossiers); $i++) {
-            $count_check_item_next = 0;
-            $check = 1;
-            $all_dossier = Attributs_dossier::where([
-                "dossier_id" => $dossiers[$i]->id,
-            ])->get();
 
-            $createdAt = Carbon::parse($dossiers[$i]->created_at);
+            if($dossiers[$i]->user_id == $user->id ){
 
-            $date = $createdAt->format("d/m/Y H:i:s");
-
-            $user = User::find($dossiers[$i]->user_id);
-            for ($j = 0; $j < count($all_dossier); $j++) {
-                if ($all_dossier[$j]->type_champs == "text") {
-                    if ($check == $count_check_item_next) {
-                        $titre .= " / ";
-                        $check++;
+                $count_check_item_next = 0;
+                $check = 1;
+                $all_dossier = Attributs_dossier::where([
+                    "dossier_id" => $dossiers[$i]->id,
+                ])->get();
+    
+                $createdAt = Carbon::parse($dossiers[$i]->created_at);
+    
+                $date = $createdAt->format("d/m/Y H:i:s");
+    
+                $user = User::find($dossiers[$i]->user_id);
+                for ($j = 0; $j < count($all_dossier); $j++) {
+                    if ($all_dossier[$j]->type_champs == "text") {
+                        if ($check == $count_check_item_next) {
+                            $titre .= " / ";
+                            $check++;
+                        }
+                        $titre .= $all_dossier[$j]->valeur;
+                        $count_check_item_next++;
                     }
-                    $titre .= $all_dossier[$j]->valeur;
-                    $count_check_item_next++;
                 }
+
             }
+           
 
             $all_dossiers[] = [
                 "id" => $dossiers[$i]->id,
