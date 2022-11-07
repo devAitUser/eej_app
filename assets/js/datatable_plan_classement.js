@@ -45,12 +45,27 @@ function remove_organigramme(e,row) {
   }
 
 
-  function click_edit(e,row) {
+function click_edit(e,row) {
              
     e.preventDefault();
     var id =row
 
     location.href=APP_URL+'/organigramme/' + row + '/edit';
+
+
+
+
+
+}
+
+
+
+function view_organigramme(e,row) {
+             
+  e.preventDefault();
+  var id =row
+
+  location.href=APP_URL+'/organigramme_view/' + row + '/edit';
 
 
 
@@ -98,7 +113,7 @@ function remove_organigramme(e,row) {
                 { "data": "nom"  },
           
                 { "data": "id"  , render: function(data, type, row) {
-                    return '<button type="button" class="btn btn-danger mr-3 " onclick="remove_organigramme(event,' + data + ' )"  >Supprimer</button><button type="button" class="btn btn-primary"   onclick="click_edit(event,' + data + ' )" >Modifier</button>' } 
+                    return '<button type="button" class="btn btn-success mr-3 " onclick="view_organigramme(event,' + data + ' )"  >Visualiser</button><button type="button" class="btn btn-danger mr-3 " onclick="remove_organigramme(event,' + data + ' )"  >Supprimer</button><button type="button" class="btn btn-primary"   onclick="click_edit(event,' + data + ' )" >Modifier</button>' } 
                 }
 
                  

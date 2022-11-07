@@ -230,7 +230,7 @@
       
                               <button class="btn btn-primary delete_user mr-3" href="" id="">Modifier</button>
 
-                              <a class="btn btn-danger delete_user" href="{{ route('delete_dossier',$id) }}" id="">Supprimer</a>
+                              <a class="btn btn-danger delete_user" href="{{ route('delete_dossier',$id) }}" onclick="return confirm('Êtes-vous sûr?')">Supprimer</a>
       
       
                         </div>

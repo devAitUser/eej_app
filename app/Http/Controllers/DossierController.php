@@ -763,8 +763,14 @@ class DossierController extends Controller
 
         if (isset($request->value_select)) {
             for ($o = 0; $o < count($request->value_select); $o++) {
-             
+
+                if($request->value_select[$o] != null){
+
                     $select_value  = $request->value_select[$o];
+
+                }
+             
+                    
                 
             }
         }
