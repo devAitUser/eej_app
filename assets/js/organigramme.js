@@ -116,6 +116,94 @@ var check_parent = 'false';
 
 
 
+function add_dossier_fill_treeview(id_organigramme,entite,pos_item) {
+
+
+  if(pos_item != 0){
+
+  }
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+
+  $.ajax({
+      url: APP_URL+"/add_dosier_array_organigramme",
+      method:"POST",
+      data:{
+   
+        organigramme_id : id_organigramme,
+        entite : entite,
+      },
+      dataType: "json",
+      success: function(data) {
+        console.log(data)
+
+        var num = 0;
+
+
+ 
+    if(pos_item == 0){
+
+   
+  
+          num = data.id_entite
+         
+          var label_entite = '<nav aria-label="breadcrumb"> <ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">'+data.name_entite+'</li> </ol> </nav>';
+          $('.tree').append("<li id='row_"+num+"'  > "+label_entite+" <div id='treeview_"+num+"'> </div> </li> ");
+              $("#treeview_"+num).treeview({
+              data: data.dossiers,
+            });
+
+    } else {
+ 
+     
+    
+        num = data.id_entite
+        var label_entite = '<nav aria-label="breadcrumb"> <ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">'+data.name_entite+'</li> </ol> </nav>';
+        $('#row_'+pos_item).html("<li id='row_"+num+"'  > "+label_entite+" <div id='treeview_"+num+"'> </div> </li> ");
+            $("#treeview_"+num).treeview({
+            data: data.dossiers,
+          });
+
+
+    }
+     
+
+       
+        
+
+
+         
+
+
+      
+      }
+  })
+
+  $.ajax({
+      url: APP_URL+"/array_organigramme_simple",
+      dataType: "json",
+      data:{
+        organigramme_id : id_organigramme
+      },
+      success: function(data) {
+        all_dossiers =data
+      }
+  })
+
+
+
+
+
+}
+
+
+
+
 
 function edit_name_dossier(e,row) {
 
@@ -321,13 +409,13 @@ function unset_table() {
 
         for (let i = 0; i < data.length; i++) {
 
-          num = num+1
+          num = data[i].id_entite;
 
 
           var label_entite = '<nav aria-label="breadcrumb"> <ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">'+data[i].name_entite+'</li> </ol> </nav>';
 
 
-          $(".tree").append("<li  > "+label_entite+" <div id='treeview_"+num+"'> </div> </li> ");
+          $(".tree").append("<li id='row_"+num+"'  > "+label_entite+" <div id='treeview_"+num+"'> </div> </li> ");
           
         
 
@@ -516,7 +604,7 @@ $(document).ready(function() {
 
 
            $("#select_entite").change(function(){
-               fill_treeview()
+               //fill_treeview()
           });
   
       
@@ -800,7 +888,7 @@ $(document).ready(function() {
 
                         if(data.etat){
                         
-                          fill_treeview();
+                    
                       
                           $('#treeview_form')[0].reset();
                           alert('ajouter aves succes');
@@ -812,6 +900,16 @@ $(document).ready(function() {
                           }, 2000);
       
                           unset_table()
+                          var x = 0
+                          console.log($("#row_"+data.id_entite).length)
+                          if($("#row_"+data.id_entite).length == 0) {
+                             x = 0
+                          }else{
+                             x =  $("#row_"+data.id_entite).prev().attr('id');
+                         
+                          }
+                        
+                          add_dossier_fill_treeview(data.id_organigramme,data.id_entite,x);
                         }
 
                         }
@@ -878,23 +976,16 @@ $(document).ready(function() {
 
 
 
+function removeRow(e,row,entite,organigramme_id) {
 
-function removeRow(e,row) {
 
-
-  e.preventDefault();
+             e.preventDefault();
 
   
-  array_id =[];
+              array_id =[];
 
 
-
-
-
-
-
-                        const
-              getChildren = id => (relations[id] || []).flatMap(o => [o, ...getChildren(o.id)]),
+              const getChildren = id => (relations[id] || []).flatMap(o => [o, ...getChildren(o.id)]),
             
               relations = all_dossiers.reduce((r, o) => {
                   (r[o.parent_id] ??= []).push(o);
@@ -909,7 +1000,7 @@ function removeRow(e,row) {
                 array_id.push(row)
              
 
-
+                
 
                 $.ajax({
                   url: APP_URL+"/delete_dossier",
@@ -919,15 +1010,18 @@ function removeRow(e,row) {
                   },
                   success:function(data){
 
-                    if(data.etat){
-                        fill_treeview();
-                        alert('supprimer avec succes');
+                    
 
-                     }
+                
                 
             
                   }
                  })
+                 
+                 var x =  $("#row_"+entite).prev().attr('id');
+                    add_dossier_fill_treeview(organigramme_id,entite,x);
+                    alert('supprimer avec succes');
+                  
 
 
 
